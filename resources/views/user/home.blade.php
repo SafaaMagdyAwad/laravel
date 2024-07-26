@@ -95,46 +95,7 @@
     </div>
 </div>
 <hr>
-<div class="container m-4 ">
-    <p>
-        future exams
-    </p>
-    <div class="row">
-        @foreach ($futureExams as $futureExam)
-            <div class="col-6  ">
-            <div class="card bg-light m-2">
-                <h6>title :{{$futureExam['title']}}</h6>
-                <p>started at: {{$futureExam['start']}}   ,  ended at: {{$futureExam['end']}}</p>
-                <p>lasted from: {{$futureExam['sDate']}}   ,to {{$futureExam['eDate']}}</p>
-                
-            </div>
-            </div>
-        @endforeach
-        
-    </div>
-</div>
-<hr>
-<div class="container m-4 ">
-    <p>
-        past exams
-    </p>
-    <div class="row">
-        @foreach ($pastExams as $pastExam)
-            <div class="col-6  ">
-            <div class="card bg-light m-2">
-                <h6>title :{{$pastExam['title']}}</h6>
-                <p>started at: {{$pastExam['start']}}   ,  ended at: {{$pastExam['end']}}</p>
-                <p>lasted from: {{$pastExam['sDate']}}   ,to {{$pastExam['eDate']}}</p>
-                <a href="{{route('show_student_ans',$pastExam['id'])}}" class="btn btn-success input mt-1 form-control loginPass">
-                show my answers details
-                </a>
-            </div>
-            </div>
-        @endforeach
-        
-    </div>
-</div>
-<hr>
+
     <p>your progress</p>
 
     <table class="table">

@@ -28,6 +28,9 @@
 <a href="{{route('exam.all')}}"  class="nav-link" >all exams</a>{{-- //crud questions --}}
 @endsection
 @section('link7')
+    <a href="{{route('exam.past')}}"  class="nav-link" >past exams</a>
+@endsection
+@section('link8')
     <a href="{{route('logout')}}"  class="nav-link" >logout</a>
 @endsection
 @section('content')

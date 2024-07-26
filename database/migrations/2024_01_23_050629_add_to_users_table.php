@@ -15,7 +15,7 @@ return new class extends Migration
             //
             $table->string('national_id')->nullable(); 
 
-            $table->string('image',1000)->nullable();
+            $table->string('image',10000)->nullable();
         });
     }
 

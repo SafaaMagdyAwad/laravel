@@ -19,6 +19,7 @@ class ExamController extends Controller
     //
     public function __construct(){
         $this->middleware("auth");
+
     }
     public function create_form(){
         $logedinuser=Auth::user();
@@ -43,6 +44,12 @@ class ExamController extends Controller
         $exams=Exam::all();
         $logedinuser=Auth::user();
         return view ("exam.all",["logedinuser"=>$logedinuser,"exams"=>$exams]);
+    }
+    public function past_exams(){ 
+        $now=date("H:i:s");
+        $logedinuser=Auth::user();
+        $exams=Exam::Where('end','<',$now)->get();
+        return view ("exam.past",["logedinuser"=>$logedinuser,"exams"=>$exams]);
     }
  
     public function update_form($id){
@@ -110,8 +117,26 @@ class ExamController extends Controller
         $exams=Exam::all();
         return view ("exam.all",["logedinuser"=>$logedinuser,"exams"=>$exams]);
     }
+    public function userfun(){
+        $logedinuser=Auth::user();
+        $year_id=$logedinuser['year_id'];
+
+        $exams=Exam::where('year_id',$year_id)->whereNull('deleted_at')->get();
+        //    dd($exams);
+        $degrees=StudentExams::where("user_id",$logedinuser['id'])->get();
+       
+        return view("user.home",["logedinuser"=>$logedinuser,"exams"=>$exams,"degrees"=>$degrees]);
+    }
 
     public function delete($id){
+        $exam=Exam::find($id);//
+        $exam->forceDelete();
+        $exams=Exam::all();
+        $logedinuser=Auth::user();
+        return view ("exam.all",["logedinuser"=>$logedinuser,"exams"=>$exams]);
+
+    }
+    public function hide($id){
         $exam=Exam::find($id);//
         $exam->delete();
         $exams=Exam::all();
@@ -119,5 +144,6 @@ class ExamController extends Controller
         return view ("exam.all",["logedinuser"=>$logedinuser,"exams"=>$exams]);
 
     }
+
     
 }

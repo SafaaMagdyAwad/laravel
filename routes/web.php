@@ -116,6 +116,7 @@ Route::group(['middleware'=> 'admin'], function () {
     
     
     Route::get('all_exams',[ExamController::class,'all'])->name('exam.all'); 
+    Route::get('past_exams',[ExamController::class,'past_exams'])->name('exam.past'); 
     
     
     Route::get('update_exam_form/{exam_id}',[ExamController::class,'update_form'])->name('exam.update_form');
@@ -144,6 +145,7 @@ Route::group(['middleware'=> 'admin'], function () {
     Route::put('update_multiChoice/{question_id}',[QuestionController::class,'update_multiChoice'])->name('question.update_multiChoice');
 
     Route::delete('delete_exam/{exam_id}',[ExamController::class,'delete'])->name('exam.delete');
+    Route::delete('hide_exam/{exam_id}',[ExamController::class,'hide'])->name('exam.hide');
 
     Route::delete('delete_Discriptive/{question_id}',[QuestionController::class,'deleteDiscriptive'])->name('deleteDiscriptive');
     Route::delete('delete_MutiChoice/{question_id}',[QuestionController::class,'deleteMutiChoice'])->name('deleteMutiChoice');

@@ -26,13 +26,17 @@
     @csrf
     
         <div>
+            <label>Add question</label>
             <input type="text" class="input mt-1 form-control loginPass" placeholder="question" name="question">
         </div>
         
         <div>
+            <label>Add answer</label>
             <input type="text" class="input mt-1 form-control loginPass" placeholder="ans" name="ans">
         </div>
         <div>
+            <label>Add mark</label>
+
             <input type="number" class="input mt-1 form-control loginPass" placeholder="mark" name="mark">
         </div>
         <div>

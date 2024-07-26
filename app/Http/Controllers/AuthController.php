@@ -20,6 +20,12 @@ use Laravel\Socialite\Facades\Socialite;
 class AuthController extends Controller
 {
     //
+    protected $examController;
+
+    public function __construct(ExamController $examController){
+        $this->examController=$examController;
+
+    }
     public function game(){
         return view('game.index');
     }
@@ -31,17 +37,7 @@ class AuthController extends Controller
         $logedinuser=Auth::user();
         if($logedinuser!=null){
              if($logedinuser['admin']==0){
-                $year_id=$logedinuser['year_id'];
-                $now=date("H:i:s");
-                $date=date("Y-m-d");
-                $exams=Exam::where('year_id',$year_id)->where('start','<=',$now)->Where('end','>=',$now)->where('sDate','<=',$date)->Where('eDate','>=',$date)->get();
-                $degrees=StudentExams::where("user_id",$logedinuser['id'])->get();
-
-                $pastExams=Exam::where('year_id',$year_id)->Where('eDate','<',$date)->get();
-                $futureExams=Exam::where('year_id',$year_id)->Where('sDate','>',$date)->get();
-                // Notification::send($logedinuser,new success($logedinuser));
-                return view("user.home",["logedinuser"=>$logedinuser,"exams"=>$exams,"pastExams"=>$pastExams,"futureExams"=>$futureExams,"degrees"=>$degrees]);
-
+                return $this->examController->userfun();
 
             }else if($logedinuser['admin']==1){
                     return view("admin.home",["logedinuser"=>$logedinuser]);
@@ -67,19 +63,7 @@ class AuthController extends Controller
             if($password_checked){
                 Auth::login($user);
                 if($user['admin']==0){
-                    $year_id=$user['year_id'];
-                    $now=date("H:i:s");
-                    $date=date("Y-m-d");
-                    $exams=Exam::where('year_id',$year_id)->where('start','<=',$now)->Where('end','>=',$now)->where('sDate','<=',$date)->Where('eDate','>=',$date)->get();
-                    
-                    $logedinuser=Auth::user();
-                    $degrees=StudentExams::where("user_id",$logedinuser['id'])->get();
-
-
-                    $pastExams=Exam::where('year_id',$year_id)->Where('eDate','<',$date)->get();
-                $futureExams=Exam::where('year_id',$year_id)->Where('sDate','>',$date)->get();
-                return view("user.home",["logedinuser"=>$logedinuser,"exams"=>$exams,"pastExams"=>$pastExams,"futureExams"=>$futureExams,"degrees"=>$degrees]);
-
+                    return $this->examController->userfun();
 
                 }else if($user['admin']==1){
 

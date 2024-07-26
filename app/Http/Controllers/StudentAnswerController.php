@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Auth;
 class StudentAnswerController extends Controller
 {
     //
-    public function __construct(){
+    protected $examController;
+    public function __construct(ExamController $examController){
         $this->middleware("auth");
+        $this->examController=$examController;
     }
 
     public function store_stu_ans(Request $request, $exam_id)
@@ -120,17 +122,8 @@ class StudentAnswerController extends Controller
         $student_exam=StudentExams::where("user_id",$logedinuser['id'])->where("exam_id",$exam_id)->first();//shows if the student entred the exam or not
         // dd($answred_questions);
         if($answred_questions == null| $student_exam==null){//if the student didnt answer the questions of the exam or didnt enter it
-            $year_id=$logedinuser['year_id']; 
-            $now=date("H:i:s");
-            $date=date("Y-m-d");
-            $degrees=StudentExams::where("user_id",$logedinuser['id'])->get();
-            $exams=Exam::where('year_id',$year_id)->where('start','<=',$now)->Where('end','>=',$now)->where('sDate','<=',$date)->Where('eDate','>=',$date)->get();
+            return $this->examController->userfun();
 
-
-            $pastExams=Exam::where('year_id',$year_id)->Where('eDate','<',$date)->get();
-            $futureExams=Exam::where('year_id',$year_id)->Where('sDate','>',$date)->get();
-            return view("user.home",["logedinuser"=>$logedinuser,"exams"=>$exams,"pastExams"=>$pastExams,"futureExams"=>$futureExams,"degrees"=>$degrees]);
-       
         }else{
 
             // dd($student_exam['total_mark']);

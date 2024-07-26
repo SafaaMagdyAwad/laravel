@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('year_id');
             $table->time('start');
             $table->time('end');
+            $table->softDeletes();
             $table->timestamps();
             
         });
