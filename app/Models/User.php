@@ -5,8 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notifiable;//to make notifications to user
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -21,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'year_id',
+        'admin',
+        'national_id',
+        'image',
     ];
 
     /**
@@ -42,4 +47,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function admin(){
+        if($this->admin == 1){
+            return true;
+        }else{
+            return false;   
+
+        }
+    }
+    public function student(){
+        if($this->admin == 0){
+            return true;
+        }else{
+            return false;   
+
+        }
+    }
 }
